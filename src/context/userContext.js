@@ -36,10 +36,13 @@ export const UserContextProvider = ({children}) => {
         setLoading(true);
         setError("");
 
-        signInWithPopup(auth, new GithubAuthProvider())
-          .then((res) => console.log(res))
-          .catch((err) => setError(err.code))
-          .finally(() => setLoading(false));
+        signInWithPopup(
+          auth, 
+          new GithubAuthProvider()
+          .addScope('public_repo'))
+            .then((res) => console.log(res))
+            .catch((err) => setError(err.code))
+            .finally(() => setLoading(false));
       };
 
       const logoutUser = () => {
