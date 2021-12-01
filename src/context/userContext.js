@@ -22,8 +22,12 @@ export const UserContextProvider = ({children}) => {
         setLoading(true);
         const unsubscribe = onAuthStateChanged(auth, (res) => {
           if (res) {
+            // console.log(res);
+            // console.log(res.accessToken);
+            localStorage.setItem('token', res.accessToken);
             setUser(res);
           } else {
+            localStorage.removeItem('token');
             setUser(null);
           }
           setError("");
@@ -46,6 +50,7 @@ export const UserContextProvider = ({children}) => {
       };
 
       const logoutUser = () => {
+        localStorage.removeItem('token');
         signOut(auth);
       };
 
