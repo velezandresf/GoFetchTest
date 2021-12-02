@@ -11,6 +11,7 @@ export const Dashboard = () => {
     const { user, logoutUser } = useUserContext();
     const [ loading, setLoading ] = useState(false);
     const [ error, setError ] = useState(undefined);
+    const [ actualUser, setActualUser ] = useState(user);
   
     const { dataRepositories, loadingRepositories, errorRepositories } = useGetRepositories();
 
@@ -26,6 +27,10 @@ export const Dashboard = () => {
         : setError(undefined);
     }, [errorRepositories]);
 
+    useEffect(() => {
+        user && setActualUser(user);
+    }, [user])
+
     if (loading) {
         return <div>
             loading
@@ -35,6 +40,7 @@ export const Dashboard = () => {
     if (error) {
         return <div>
             {error}
+            <Button variant='contained' onClick="window.location.reload();">Refresh Page</Button>
         </div>
     }
 
@@ -44,8 +50,8 @@ export const Dashboard = () => {
                 {user.photoURL && 
                     <img src={user.photoURL} alt='githubphoto' width='50px'/>
                 }
-                <p>Name : {user.displayName}</p>
-                <p>Email : {user.email}</p>
+                <p>Name : {actualUser.displayName}</p>
+                <p>Email : {actualUser.email}</p>
             </div>
 
             <DataTable columns={columns} rows={dataRepositories}/>

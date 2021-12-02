@@ -7,8 +7,6 @@ export const Login = () => {
     const { signInWithGithub } = useUserContext();
 
     return (
-        <div>
-            <Button variant="contained" onClick={signInWithGithub}>Login with GitHub</Button>
-        </div>
+        <Button variant="contained" onClick={signInWithGithub}>Login with GitHub</Button>
     )
 }
