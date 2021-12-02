@@ -5,7 +5,7 @@ import {
     signInWithPopup, 
     GithubAuthProvider 
 } from "firebase/auth";
-import { auth  } from "../firebase"
+import { auth  } from "../config/firebase"
 
 export const UserContext = createContext({});
 
