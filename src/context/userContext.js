@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { 
-    // onAuthStateChanged, 
+    onAuthStateChanged, 
     signOut, 
     signInWithPopup, 
     GithubAuthProvider 
@@ -17,6 +17,23 @@ export const UserContextProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
+  useState(() => {
+    setLoading(true);
+    const unsubscribe = onAuthStateChanged(auth, (res) => {
+      if (res) {
+        setUser(res);
+      } else {
+        localStorage.removeItem('token');
+        setUser(null);
+      }
+      setError("");
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
+
+
 
   const signInWithGithub = () => {
     setLoading(true);
