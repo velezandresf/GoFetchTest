@@ -29,10 +29,8 @@ export const UserContextProvider = ({children}) => {
         .then((res) => {
           localStorage.setItem('token', res._tokenResponse.oauthAccessToken);
           setUser(res);
-          console.log(res);
         })
         .catch((err) => {
-          console.log(err);
           setError(err.code);
         })
         .finally(() => setLoading(false));    
